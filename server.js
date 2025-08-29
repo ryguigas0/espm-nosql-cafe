@@ -27,9 +27,26 @@ app.post("/pedido", async (req, res) => {
 
   console.log({ ip, items });
 
-  redis.set(ip, JSON.stringify(items));
+  await redis.set(ip, JSON.stringify(items));
 
-  res.status(204).send();
+  res.status(201).json({
+    message: "Cart created!",
+  });
+});
+
+app.get("/carrinho", async (req, res) => {
+  const ip = req.ip;
+
+  const cartData = await redis.get(ip);
+
+  if (!cartData) {
+    res.status(404).json({ error: "Cart data not found!" });
+    return;
+  }
+
+  const items = JSON.parse(cartData);
+
+  res.status(200).json({ message: "Cart found!", items });
 });
 
 app.listen(3000, async () => {
