@@ -56,7 +56,7 @@
             fetch("/pedido", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ itens: items })
+                body: JSON.stringify({ items })
             }).then(r => alert("Pedido enviado!"))
                 .catch(e => alert("Erro ao enviar pedido"));
         });
