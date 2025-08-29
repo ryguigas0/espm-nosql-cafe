@@ -1,10 +1,10 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import path from "node:path";
 
 const app = express();
 
-app.use(express.json())
-app.use(express.static(path.join(__dirname, "assets")));
+app.use(express.json());
+app.use(express.static(path.join(import.meta.dirname, "assets")));
 
 app.post("/pedido", (req, res) => {
   const body = req.body;
